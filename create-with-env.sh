@@ -14,7 +14,6 @@ else
 fi
 
 
-COMPONENT=all
 create_ec2() {
   PRIVATE_IP=$(aws ec2 run-instances \
       --image-id ${AMI_ID} \
@@ -39,7 +38,6 @@ if [ -z "${AMI_ID}" ]; then
 fi
 
 SGID=$(aws ec2 describe-security-groups --filters Name=group-name,Values=${SG_NAME} | jq  '.SecurityGroups[].GroupId' | sed -e 's/"//g')
-
 if [ -z "${SGID}" ]; then
   echo "Given SGID Group does not exit"
   exit 1
